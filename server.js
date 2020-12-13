@@ -9,13 +9,13 @@ dotenv.config()
 const app = express();
 const port = process.env.PORT
 const db = process.env.DB_HOST
-const corsOptions = {
-    origin: 'https://tiktok-clone-59d8d.web.app',
-    optionsSuccessStatus: 200
-}
 app.use(express.json());
-app.use(cors(corsOptions));
-
+app.use(cors({
+    origin : 'https://tiktok-clone-59d8d.web.app',
+    "methods": "GET,POST",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+}));
 
 mongoose.connect(db,{
     useNewUrlParser: true,
