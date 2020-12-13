@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import cors from 'cors';
+//import cors from 'cors';
 //import data from './data.js';
 import videos from './dbModel.js';
 import dotenv from 'dotenv'
@@ -10,12 +10,12 @@ const app = express();
 const port = process.env.PORT
 const db = process.env.DB_HOST
 app.use(express.json());
-app.use(cors({
-    origin : 'https://tiktok-clone-59d8d.web.app',
-    "methods": "GET,POST",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 204
-}));
+app.use((req,res,next) =>{
+    res.setHeader("Access-Control-Allow-Origin: https://tiktok-clone-59d8d.web.app");
+    res.setHeader("Access-Control-Allow-Headers: *");
+    res.setHeader("Access-Control-Allow-Method: *");
+    next();
+})
 
 mongoose.connect(db,{
     useNewUrlParser: true,
