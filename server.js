@@ -10,11 +10,10 @@ const app = express();
 const port = process.env.PORT
 const db = process.env.DB_HOST
 app.use(express.json());
+app.use(cors(corsOptions));
 const corsOptions = {
     origin: 'https://tiktok-clone-59d8d.web.app',
-    methods: ["POST","GET"],
-    preflightContinue: false,
-    optionsSuccessStatus: 204
+    optionsSuccessStatus: 200
   }
 
 mongoose.connect(db,{
@@ -24,14 +23,14 @@ mongoose.connect(db,{
 })
 
 
-app.get('/',cors(corsOptions),(req,res) => 
+app.get('/',(req,res) => 
   res.status(200).send('Hello tik tok')
   );
 
 /*app.get('/v1/posts',cors(corsOptions),(req,res) => 
   res.status(200).send(data));*/
 
-app.post('/v2/posts',cors(corsOptions),(req,res) => {
+app.post('/v2/posts',(req,res) => {
     const dbVideos =req.body
     videos.create(dbVideos, (err, data) => {
         if (err) {
@@ -42,7 +41,7 @@ app.post('/v2/posts',cors(corsOptions),(req,res) => {
     })
 });
 
-app.get('/v2/posts',cors(corsOptions),(req,res) => {
+app.get('/v2/posts',(req,res) => {
     videos.find((err, data) => {
         if(err) {
             res.status(500).send(err);
