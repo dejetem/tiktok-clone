@@ -13,7 +13,8 @@ app.use(express.json());
 const corsOptions = {
     origin: 'https://tiktok-clone-59d8d.web.app',
     methods: ["POST","GET"],
-    optionsSuccessStatus: 200 
+    preflightContinue: false,
+    optionsSuccessStatus: 204
   }
 
 mongoose.connect(db,{
