@@ -12,6 +12,7 @@ const db = process.env.DB_HOST
 app.use(express.json());
 const corsOptions = {
     origin: 'https://tiktok-clone-59d8d.web.app',
+    //methods: ["POST","GET"],
     optionsSuccessStatus: 200 
   }
 
@@ -23,7 +24,8 @@ mongoose.connect(db,{
 
 
 app.get('/',cors(corsOptions),(req,res) => 
-  res.status(200).send('Hello tik tok'));
+  res.status(200).send('Hello tik tok')
+  );
 
 /*app.get('/v1/posts',cors(corsOptions),(req,res) => 
   res.status(200).send(data));*/
