@@ -12,7 +12,7 @@ const db = process.env.DB_HOST
 app.use(express.json());
 const corsOptions = {
     origin: 'https://tiktok-clone-59d8d.web.app',
-    //methods: ["POST","GET"],
+    methods: ["POST","GET"],
     optionsSuccessStatus: 200 
   }
 
