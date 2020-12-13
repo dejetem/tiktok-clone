@@ -11,7 +11,7 @@ const port = process.env.PORT
 const db = process.env.DB_HOST
 app.use(express.json());
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: '*',
     optionsSuccessStatus: 200 
   }
 
