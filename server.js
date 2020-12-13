@@ -11,9 +11,8 @@ const port = process.env.PORT
 const db = process.env.DB_HOST
 app.use(express.json());
 app.use((req,res,next) =>{
-    res.setHeader("Access-Control-Allow-Origin: https://tiktok-clone-59d8d.web.app");
-    res.setHeader("Access-Control-Allow-Headers: *");
-    res.setHeader("Access-Control-Allow-Method: *");
+    res.setHeaders("Access-Control-Allow-Origin", "*"),
+    res.setHeaders("Access-Control-Allow-Headers", "*"),
     next();
 })
 
