@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-//import cors from 'cors';
+import cors from 'cors';
 //import data from './data.js';
 import videos from './dbModel.js';
 import dotenv from 'dotenv'
@@ -10,11 +10,10 @@ const app = express();
 const port = process.env.PORT
 const db = process.env.DB_HOST
 app.use(express.json());
-app.use((req,res,next) =>{
-    res.setHeaders("Access-Control-Allow-Origin", "*"),
-    res.setHeaders("Access-Control-Allow-Headers", "*"),
-    next();
-})
+const corsOptions = {
+    origin: 'https://tiktok-clone-59d8d.web.app/',
+    optionsSuccessStatus: 200 
+  }
 
 mongoose.connect(db,{
     useNewUrlParser: true,
@@ -23,14 +22,13 @@ mongoose.connect(db,{
 })
 
 
-app.get('/',(req,res) => 
-  res.status(200).send('Hello tik tok')
-  );
+app.get('/',cors(corsOptions),(req,res) => 
+  res.status(200).send('Hello tik tok'));
 
 /*app.get('/v1/posts',cors(corsOptions),(req,res) => 
   res.status(200).send(data));*/
 
-app.post('/v2/posts',(req,res) => {
+app.post('/v2/posts',cors(corsOptions),(req,res) => {
     const dbVideos =req.body
     videos.create(dbVideos, (err, data) => {
         if (err) {
@@ -41,7 +39,7 @@ app.post('/v2/posts',(req,res) => {
     })
 });
 
-app.get('/v2/posts',(req,res) => {
+app.get('/v2/posts',cors(corsOptions),(req,res) => {
     videos.find((err, data) => {
         if(err) {
             res.status(500).send(err);
