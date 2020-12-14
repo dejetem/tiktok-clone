@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from 'cors';
+import cool from 'cool-ascii-faces';
 //import data from './data.js';
 import videos from './dbModel.js';
 import dotenv from 'dotenv'
@@ -29,6 +30,9 @@ mongoose.connect(db,{
 
 
 app.get('/',(req,res) => 
+  res.status(200).send('Hello tik tok'));
+
+app.get('/cool',(req,res) => 
   res.status(200).send('Hello tik tok'));
 
 /*app.get('/v1/posts',cors(corsOptions),(req,res) => 
