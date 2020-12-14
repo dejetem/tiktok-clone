@@ -10,10 +10,16 @@ const app = express();
 const port = process.env.PORT
 const db = process.env.DB_HOST
 app.use(express.json());
-const corsOptions = {
-    origin: '*',
+app.use(cors());
+app.use((req,res,next) => {
+    res.setHeader("Allow-Control-Allow-Origin", "*");
+    res.setHeader("Allow-Control-Allow-Headers", "*");
+    next();
+}) 
+/*const corsOptions = {
+    origin: 'http://localhost:3000',
     optionsSuccessStatus: 200 
-  }
+  }*/
 
 mongoose.connect(db,{
     useNewUrlParser: true,
@@ -22,13 +28,13 @@ mongoose.connect(db,{
 })
 
 
-app.get('/',cors(corsOptions),(req,res) => 
+app.get('/',(req,res) => 
   res.status(200).send('Hello tik tok'));
 
 /*app.get('/v1/posts',cors(corsOptions),(req,res) => 
   res.status(200).send(data));*/
 
-app.post('/v2/posts',cors(corsOptions),(req,res) => {
+app.post('/v2/posts',(req,res) => {
     const dbVideos =req.body
     videos.create(dbVideos, (err, data) => {
         if (err) {
@@ -39,7 +45,7 @@ app.post('/v2/posts',cors(corsOptions),(req,res) => {
     })
 });
 
-app.get('/v2/posts',cors(corsOptions),(req,res) => {
+app.get('/v2/posts',(req,res) => {
     videos.find((err, data) => {
         if(err) {
             res.status(500).send(err);
